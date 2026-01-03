@@ -2,11 +2,11 @@
   "name": "student-enrollment-backend",
   "version": "1.0.0",
   "description": "Student Enrollment System - Node.js, TypeScript, PostgreSQL, TypeORM",
-  "main": "dist/index.js",
+  "main": "dist/server.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
-    "start": "node dist/index.js",
+    "start": "node dist/server.js",
     "typeorm": "typeorm-ts-node-commonjs"
   },
   "dependencies": {

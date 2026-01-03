@@ -14,7 +14,7 @@ export const env = {
     PORT: process.env.PORT ? Number(process.env.PORT) : 3000,
 
     // Database (Supabase / Postgres)
-    // DATABASE_URL: required("DATABASE_URL"),
+    DATABASE_URL: required("DATABASE_URL"),
 
     // Optional / future
     JWT_SECRET: process.env.JWT_SECRET || "",
