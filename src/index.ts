@@ -11,7 +11,7 @@ const app = express();
  * Add new domains here safely
  */
 const ALLOWED_ORIGINS = new Set([
-  "http://localhost:3000",
+  "http://localhost:3000","http://localhost:3002",
   "https://uvv-orcin.vercel.app",
 ]);
 
