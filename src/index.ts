@@ -1,32 +1,20 @@
-import "reflect-metadata"; // MUST be first
+import "reflect-metadata";
 import express from "express";
 import cors from "cors";
 import router from "./routes";
-import { AppDataSource } from "./data-source";
+import { initDB } from "./db-init";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use("/api", router);
 
-// 🔥 Lazy DB initialization (VERY IMPORTANT)
-let isInitialized = false;
-
+// 🔥 CRITICAL: fail fast before handling requests
 app.use(async (_req, _res, next) => {
-  if (!isInitialized) {
-    if (!AppDataSource.isInitialized) {
-      await AppDataSource.initialize();
-      console.log("✅ Database connected");
-    }
-    isInitialized = true;
-  }
+  await initDB(); // ❌ throws → app crashes
   next();
 });
 
-// Health check
-app.get("/health", (_req, res) => {
-  res.json({ status: "ok" });
-});
+app.use("/api", router);
 
-export default app; // ✅ REQUIRED FOR VERCEL
+export default app;
