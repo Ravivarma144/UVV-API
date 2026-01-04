@@ -11,23 +11,52 @@ router.get("/students/counts", getStudentsCount)
 router.post("/student/bulk/:schoolId", bulkCreateStudents);
 router.get("/students/school/:schoolId", getStudentsBySchool);
 router.get("/name-image", (req, res) => {
-    const text = req.query.text || "Default Text";
+//     const text = req.query.text || "Default Text";
 
-    res.setHeader("Content-Type", "image/svg+xml");
-    res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+//     res.setHeader("Content-Type", "image/svg+xml");
+//     res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
 
-    res.send(`
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="200">
+//     res.send(`
+// <svg xmlns="http://www.w3.org/2000/svg" width="800" height="200">
+//   <rect width="100%" height="100%" fill="#ffffff"/>
+//   <text x="50%" y="50%" font-size="64"
+//         font-family="Arial, Helvetica, sans-serif"
+//         fill="#000000"
+//         text-anchor="middle"
+//         dominant-baseline="middle">
+//     ${text}
+//   </text>
+// </svg>
+// `);
+
+const rawText = String(req.query.text || "")
+  const safeText = rawText.replace(/[<>]/g, "");
+
+  const words = safeText.trim().split(/\s+/);
+
+  const line1 = words.slice(0, 2).join(" ");
+  const line2 = words.slice(2).join(" ");
+
+  res.setHeader("Content-Type", "image/svg+xml");
+  res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+
+  res.send(`
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="160">
   <rect width="100%" height="100%" fill="#ffffff"/>
-  <text x="50%" y="50%" font-size="64"
+
+  <text x="50%" y="50%"
         font-family="Arial, Helvetica, sans-serif"
         fill="#000000"
         text-anchor="middle"
         dominant-baseline="middle">
-    ${text}
+
+    <tspan x="50%" dy="-0.6em" font-size="28">${line1}</tspan>
+    <tspan x="50%" dy="1.4em" font-size="18">• ${line2}</tspan>
+
   </text>
 </svg>
 `);
+
 });
 
 
