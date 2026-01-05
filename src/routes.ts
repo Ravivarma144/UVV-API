@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getSchools } from "./controllers/school.controller";
-import { registerStudent, bulkCreateStudents, getStudentsBySchool, getAllStudents, getStudentsCount } from "./controllers/student.controller";
+import { registerStudent, bulkCreateStudents, getStudentsBySchool, getAllStudents, getStudentsCount , getStudentByHallTicket } from "./controllers/student.controller";
 
 const router = Router();
 
@@ -11,6 +11,7 @@ router.get("/students/counts", getStudentsCount);
 // router.get("/students/json/school", bulkCreateStudents);
 router.post("/student/bulk/:schoolId", bulkCreateStudents);
 router.get("/students/school/:schoolId", getStudentsBySchool);
+router.get("/student/:studentId", getStudentByHallTicket);
 router.get("/name-image", (req, res) => {
 
 const rawText = String(req.query.text || "")

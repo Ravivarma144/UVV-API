@@ -83,3 +83,24 @@ export const getStudentsBySchool = async (
   }
   
 };
+
+
+export const getStudentByHallTicket = async (
+  req: Request,
+  res: Response
+) => {
+
+     try {
+      const { studentId} =  req.params;
+       if (!studentId) {
+      throw new Error("Student not authorized");
+    }
+    const students = await service.getStudentsByHallTicketId(studentId);
+    res.json(
+    students
+  );
+  } catch (err: any) {
+    res.status(400).json({ message: err.message });
+  }
+  
+};

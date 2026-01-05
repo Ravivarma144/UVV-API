@@ -124,9 +124,9 @@ async insertStudentByJson(data: StudentJsonRow[]) {
       schoolCache.set(row.SCHOOL, school);
     }
 
-    // 🔹 Normalize gender safely (DB enum = BOY | GIRL)
+    // 🔹 Normalize gender safely (DB enum = BOY | GIRL). "GIRL" BOY
     const gender: "BOY" | "GIRL" =
-      row.gender === "GIRL" ? "GIRL" : "BOY";
+      row.gender === "GIRL" ? "GIRL" : "BOY";  
 
     const student = this.studentRepo.create({
       fullName: row.fullName.trim(),
@@ -198,6 +198,16 @@ async insertStudentByJson(data: StudentJsonRow[]) {
   {
   return await this.studentRepo.find({
     where: { school: { id: schoolId } },
+    relations: ["school"]
+  });
+
+  }
+
+
+  async getStudentsByHallTicketId(studentId:string)
+  {
+  return await this.studentRepo.find({
+    where: { loginNumber: studentId  },
     relations: ["school"]
   });
 

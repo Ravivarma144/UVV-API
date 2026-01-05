@@ -32,7 +32,7 @@ export const students : StudentJsonRow[]  =
   "SCHOOL": "61f3aef6-36ab-4057-8327-348b9e663e14",
   "surName": "GATTA",
   "fullName": "ANUSHKA",
-  "gender": "GIRL"
+  "gender": "GIRL" 
  },
  {
   "SNO": 4,
