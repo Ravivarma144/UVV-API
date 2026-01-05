@@ -206,7 +206,7 @@ async insertStudentByJson(data: StudentJsonRow[]) {
 
   async getStudentsByHallTicketId(studentId:string)
   {
-  return await this.studentRepo.find({
+  return await this.studentRepo.findOne({
     where: { loginNumber: studentId  },
     relations: ["school"]
   });
