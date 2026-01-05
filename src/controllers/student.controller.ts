@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
 import { StudentService } from "../services/student.service";
+import { students} from "../services/students";
+
+
 
 const service = new StudentService();
 
@@ -12,7 +15,19 @@ export const registerStudent = async (req: Request, res: Response) => {
   }
 };
 
+
 export const bulkCreateStudents = async (req: Request, res: Response) => {
+  try {
+    const studentsInfo = await service.insertStudentByJson(students);
+    res.status(201).json(studentsInfo);
+  } catch (err: any) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+
+
+export const bulkStudentsByJson = async (req: Request, res: Response) => {
   try {
     const bulkStudent = await service.bulkStudentInsert(req.body,req.params);
     res.status(201).json(bulkStudent);

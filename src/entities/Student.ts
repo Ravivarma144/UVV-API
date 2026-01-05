@@ -8,6 +8,9 @@ import {
 } from "typeorm";
 import { School } from "./Schools";
 
+
+export type Gender = "BOY" | "GIRL" | "OTHER";
+
 @Entity("students")
 export class Student {
   @PrimaryGeneratedColumn("uuid")
@@ -18,18 +21,14 @@ export class Student {
 
   @Column()
   surName!: string;
+  
+  @Column({
+    type: "enum",
+    enum: ["BOY", "GIRL","OTHER"],
+    default: "OTHER"
+  })
+  gender!: Gender;
 
-//   // OPTIONAL email
-//   @Column({ nullable: true, unique: true })
-//   email?: string;
-
-//   // OPTIONAL phone number
-//   @Column({ nullable: true, unique: true })
-//   phoneNumber?: string;
-
-//   // UNIQUE auto-generated login number
-//   @Column({ unique: true })
-//   loginNumber: string;
 
 // OPTIONAL email (unique only when present)
   @Column({ type: "varchar", nullable: true, unique: true })
