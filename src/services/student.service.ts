@@ -197,10 +197,21 @@ async insertStudentByJson(data: StudentJsonRow[]) {
 
   async getStudentsBySchoolId(schoolId:string)
   {
-  return await this.studentRepo.find({
+    const school = await this.schoolRepo.findOne({
+      where: { id: schoolId, is_active: true },
+    });
+
+    if (!school) {
+      throw new Error("School not authorized");
+    }
+
+  const students = await this.studentRepo.find({
     where: { school: { id: schoolId } },
-    relations: ["school"]
+    relations: ["school"],
+    order: { surName: "ASC" }
   });
+  return {students,school};
+  
 
   }
 

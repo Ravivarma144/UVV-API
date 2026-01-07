@@ -72,11 +72,12 @@ export const getStudentsBySchool = async (
        if (!schoolId) {
       throw new Error("School not authorized");
     }
-    const students = await service.getStudentsBySchoolId(schoolId);
+    const result = await service.getStudentsBySchoolId(schoolId);
     res.json({
     schoolId,
-    count: students.length,
-    students
+    ...result.school,
+    count: result.students.length,
+    students: result.students
   });
   } catch (err: any) {
     res.status(400).json({ message: err.message });
