@@ -179,6 +179,7 @@ async insertStudentByJson(data: StudentJsonRow[]) {
       s.id AS "schoolId",
       s.name AS "schoolName",
       s.code as "schoolCode",
+      s.address as "schoolAddress",
       COUNT(st.id) AS "studentCount"
     FROM schools s
     LEFT JOIN students st ON st.school_id = s.id

@@ -20,6 +20,9 @@ export class School {
   @Column({ default: true })
   is_active!: boolean;
 
+  @Column({ nullable: true })
+  address!: string;
+
   @OneToMany(() => Student, student => student.school)
   students!: Student[];
 }
