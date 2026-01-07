@@ -104,3 +104,14 @@ export const getStudentByHallTicket = async (
   }
   
 };
+
+export const generateRollNumbers = async (req: Request, res: Response) => {
+try {
+    const studentsRollCall = await service.generateRollNumbers();
+    res.json(
+    studentsRollCall
+  );
+  } catch (err: any) {
+    res.status(400).json({ message: err.message });
+  }
+};

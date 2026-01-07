@@ -42,6 +42,9 @@ export class Student {
   @Column({ type: "varchar", unique: true })
   loginNumber!: string;
 
+  @Column({ type: "int", nullable: true, unique: true  })
+  rollNumber!: number | null;
+
   @ManyToOne(() => School, school => school.students, { nullable: false })
   @JoinColumn({ name: "school_id" })
   school!: School;
@@ -53,6 +56,7 @@ export class Student {
   normalizeOptionalFields() {
     this.email = this.email?.trim() || null;
     this.phoneNumber = this.phoneNumber?.trim() || null;
+  
   }
 
 

@@ -212,5 +212,46 @@ async insertStudentByJson(data: StudentJsonRow[]) {
   });
 
   }
+
+  async generateRollNumbers() {
+  const ROLL_START = 250001;
+
+  // 🔹 Fetch students sorted by surname + fullname
+  const students = await this.studentRepo.find({
+    // where: {
+    //   school: { id: schoolId },
+    // },
+    relations: ["school"],
+    order: {
+      surName: "ASC",
+      fullName: "ASC",
+    },
+  });
+
+  if (students.length === 0) {
+    throw new Error("No students found for this school");
+  }
+
+  // 🔒 Prevent re-generation
+  if (students.some(s => s.rollNumber !== null)) {
+    throw new Error("Roll numbers already generated for this school");
+  }
+
+  // 🔹 Assign roll numbers starting from 250001
+  students.forEach((student, index) => {
+    student.rollNumber = ROLL_START + index;
+  });
+
+  // 🔹 Save safely in a transaction
+  await this.studentRepo.manager.transaction(async (manager) => {
+    await manager.save(Student, students);
+  });
+
+  return {
+    message: "Roll numbers generated successfully",
+    startFrom: ROLL_START,
+    total: students.length,
+  };
+  }
   
 }
