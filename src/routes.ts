@@ -16,7 +16,7 @@ router.get("/students/school/:schoolId", getStudentsBySchool);
 router.get("/student/:studentId", getStudentByHallTicket);
 router.get("/students/generate-roll-numbers", generateRollNumbers);
 
-router.use("/exams", getExams);
+router.get("/exams", getExams);
 router.post("/exams", createExam);
 router.get("/exams/counts", getExamsCount);
 router.get("/exams/:id", getExamById);
