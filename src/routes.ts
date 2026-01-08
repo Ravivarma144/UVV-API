@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { getSchools } from "./controllers/school.controller";
-import { registerStudent, bulkCreateStudents, getStudentsBySchool, getAllStudents, getStudentsCount , getStudentByHallTicket , generateRollNumbers } from "./controllers/student.controller";
+import { registerStudent, bulkCreateStudents, getStudentsBySchool,
+     getAllStudents, getStudentsCount, getStudentByHallTicket, generateRollNumbers } from "./controllers/student.controller";
+import { createExam, getExams, getExamById, getExamsCount, deleteExam , updateExam } from "./controllers/exam.controller";
 
 const router = Router();
 
@@ -13,20 +15,36 @@ router.post("/student/bulk/:schoolId", bulkCreateStudents);
 router.get("/students/school/:schoolId", getStudentsBySchool);
 router.get("/student/:studentId", getStudentByHallTicket);
 router.get("/students/generate-roll-numbers", generateRollNumbers);
+
+router.use("/exams", getExams);
+router.post("/exams", createExam);
+router.get("/exams/counts", getExamsCount);
+router.get("/exams/:id", getExamById);
+router.put("/exams/:id", updateExam);
+router.delete("/exams/:id", deleteExam);
+
+
+router.get("/ping", (_req, res) => {
+    res.json({ message: "pong" });
+});
+
+router.get("/health", (_req, res) => {
+    res.json({ status: "ok" });
+});
 router.get("/name-image", (req, res) => {
 
-const rawText = String(req.query.text || "")
-  const safeText = rawText.replace(/[<>]/g, "");
+    const rawText = String(req.query.text || "")
+    const safeText = rawText.replace(/[<>]/g, "");
 
-  const words = safeText.trim().split(/\s+/);
+    const words = safeText.trim().split(/\s+/);
 
-  const line1 = words.slice(0, 2).join(" ");
-  const line2 = words.slice(2).join(" ");
+    const line1 = words.slice(0, 2).join(" ");
+    const line2 = words.slice(2).join(" ");
 
-  res.setHeader("Content-Type", "image/svg+xml");
-  res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+    res.setHeader("Content-Type", "image/svg+xml");
+    res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
 
-  res.send(`
+    res.send(`
 <svg xmlns="http://www.w3.org/2000/svg" width="400" height="160">
   <rect width="100%" height="100%" fill="#ffffff"/>
 

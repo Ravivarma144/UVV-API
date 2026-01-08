@@ -1,27 +1,8 @@
-// import "reflect-metadata";
-// import { DataSource } from "typeorm";
-// import { School } from "./entities/Schools";
-// import { Student } from "./entities/Student";
-// import { env } from "./env";
-
-// export const AppDataSource = new DataSource({
-//   type: "postgres",
-//   host: env.DB_HOST,
-//   port:  5432,
-//   username: env.DB_USER,
-//   password: env.DB_PASSWORD,
-//   database: env.DB_NAME,
-//   synchronize: true, // ⚠️ disable in production later
-//   logging: false,
-//   ssl: {
-//     rejectUnauthorized: false, // ✅ REQUIRED for Supabase
-//   },
-//   entities: [School, Student],
-// });
-
 import { DataSource } from "typeorm";
 import { School } from "./entities/Schools";
 import { Student } from "./entities/Student";
+import { Exam } from "./entities/Exams";
+import { ExamResult } from "./entities/ExamResults";
 import { env } from "./env";
 
 export const AppDataSource = new DataSource({
@@ -32,5 +13,5 @@ export const AppDataSource = new DataSource({
   },
   synchronize: true,
   logging: false,
-  entities: [School, Student],
+  entities: [School, Student , Exam, ExamResult],
 });
