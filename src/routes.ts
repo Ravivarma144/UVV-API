@@ -2,7 +2,7 @@ import { Router } from "express";
 import { getSchools } from "./controllers/school.controller";
 import { registerStudent, bulkCreateStudents, getStudentsBySchool,
      getAllStudents, getStudentsCount, getStudentByHallTicket, generateRollNumbers } from "./controllers/student.controller";
-import { createExam, getExams, getExamById, getExamsCount, deleteExam , updateExam } from "./controllers/exam.controller";
+import { createExam, getExams, getExamById, getExamsCount, deleteExam , updateExam ,addExamResult ,getExamResultsByExamId} from "./controllers/exam.controller";
 
 const router = Router();
 
@@ -23,6 +23,8 @@ router.get("/exams/:id", getExamById);
 router.put("/exams/:id", updateExam);
 router.delete("/exams/:id", deleteExam);
 
+router.post("/exams/:examId/marks-entry", addExamResult);
+router.get("/exams/:examId/results", getExamResultsByExamId);
 
 router.get("/ping", (_req, res) => {
     res.json({ message: "pong" });
