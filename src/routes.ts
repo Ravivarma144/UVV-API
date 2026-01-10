@@ -25,6 +25,7 @@ router.delete("/exams/:id", deleteExam);
 
 router.post("/exams/:examId/marks-entry", addExamResult);
 router.get("/exams/:examId/results", getExamResultsByExamId);
+router.get("/exams/:examId/school-toppers", getExamResultsByExamId);
 
 router.get("/ping", (_req, res) => {
     res.json({ message: "pong" });
