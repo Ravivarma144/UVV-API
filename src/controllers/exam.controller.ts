@@ -197,6 +197,7 @@ export const getExamResultsByExamId = async (
     const results = await resultRepo
       .createQueryBuilder("result")
       .leftJoinAndSelect("result.student", "student")
+      .leftJoinAndSelect("student.school", "school")
       .leftJoin("result.exam", "exam")
       .where("exam.id = :examId", { examId })
       .orderBy("student.rollNumber", "ASC")
@@ -209,6 +210,8 @@ export const getExamResultsByExamId = async (
       rollNumber: r.student.rollNumber,
       studentId: r.student.id,
       name: `${r.student.surName} ${r.student.fullName}`,
+      studentSchool: r.student.school.name,
+      studentSchoolId: r.student.school.id,
 
       marks: {
         telugu: r.telugu,
